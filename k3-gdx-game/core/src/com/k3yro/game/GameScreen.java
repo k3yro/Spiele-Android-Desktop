@@ -16,7 +16,9 @@ public class GameScreen extends ScreenAdapter {
     Texture img;
     ShapeRenderer shapeRenderer;
     Vector2 position;
+    Vector2 touchPos;
     float maxVelocity = 200.0f;
+    boolean touched = false;
 
     public GameScreen() {
         batch = new SpriteBatch();
@@ -24,6 +26,8 @@ public class GameScreen extends ScreenAdapter {
         shapeRenderer = new ShapeRenderer();
 
         position = new Vector2(100.0f, 100.0f);
+        touchPos = new Vector2(100.0f, 100.0f);
+
     }
 
     @Override
@@ -55,7 +59,7 @@ public class GameScreen extends ScreenAdapter {
             position.x -= Gdx.input.getAccelerometerX() * 5;
         }
 
-        if (Gdx.input.isTouched()){
+        //if (Gdx.input.isTouched()){
             if (position.y <= (Gdx.graphics.getHeight()-100.0f) && Gdx.input.getAccelerometerY() < 0)
             {
                 position.y -= Gdx.input.getAccelerometerY() * 5;
@@ -63,6 +67,26 @@ public class GameScreen extends ScreenAdapter {
             else if (position.y >= 0 && Gdx.input.getAccelerometerY() > 0)
             {
                 position.y -= Gdx.input.getAccelerometerY() * 5;
+            }
+
+       // }
+
+        // Feuerball
+        if (touched){
+            touchPos.y += delta * 900;
+            if (touchPos.y > Gdx.graphics.getHeight()){
+                touched = false;
+            }
+        }
+
+        if (Gdx.input.justTouched())
+        {
+            if (touched){
+
+            }else {
+                touchPos.x = position.x;
+                touchPos.y = position.y;
+                touched = true;
             }
 
         }
@@ -86,6 +110,10 @@ public class GameScreen extends ScreenAdapter {
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(Color.CYAN);
         shapeRenderer.rect(position.x, position.y, 100.0f, 100.0f);
+        if (touched){
+            shapeRenderer.setColor(Color.ORANGE);
+            shapeRenderer.circle(touchPos.x, touchPos.y, 10.0f);
+        }
         shapeRenderer.end();
 
     }
