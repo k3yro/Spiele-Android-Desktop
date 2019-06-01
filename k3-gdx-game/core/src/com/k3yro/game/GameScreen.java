@@ -5,7 +5,6 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
@@ -13,7 +12,6 @@ import com.badlogic.gdx.math.Vector2;
 public class GameScreen extends ScreenAdapter {
 
     SpriteBatch batch;
-    Texture img;
     ShapeRenderer shapeRenderer;
     Vector2 position;
     Vector2 touchPos;
@@ -22,7 +20,6 @@ public class GameScreen extends ScreenAdapter {
 
     public GameScreen() {
         batch = new SpriteBatch();
-        img = new Texture("badlogic.jpg");
         shapeRenderer = new ShapeRenderer();
 
         position = new Vector2(100.0f, 100.0f);
@@ -49,6 +46,7 @@ public class GameScreen extends ScreenAdapter {
             Gdx.app.exit();
         }
 
+
         // Neigungssteuerung
         if (position.x <= (Gdx.graphics.getWidth()-100.0f) && Gdx.input.getAccelerometerX() < 0)
         {
@@ -59,17 +57,15 @@ public class GameScreen extends ScreenAdapter {
             position.x -= Gdx.input.getAccelerometerX() * 5;
         }
 
-        //if (Gdx.input.isTouched()){
-            if (position.y <= (Gdx.graphics.getHeight()-100.0f) && Gdx.input.getAccelerometerY() < 0)
-            {
-                position.y -= Gdx.input.getAccelerometerY() * 5;
-            }
-            else if (position.y >= 0 && Gdx.input.getAccelerometerY() > 0)
-            {
-                position.y -= Gdx.input.getAccelerometerY() * 5;
-            }
-
-       // }
+        float AccPosY = Gdx.input.getAccelerometerY() - 5.0f;
+        if (position.y <= (Gdx.graphics.getHeight()-100.0f) && AccPosY < 0)
+        {
+            position.y -= AccPosY* 5;
+        }
+        else if (position.y >= 0 && AccPosY > 0)
+        {
+            position.y -= AccPosY * 5;
+        }
 
         // Feuerball
         if (touched){
@@ -84,8 +80,8 @@ public class GameScreen extends ScreenAdapter {
             if (touched){
 
             }else {
-                touchPos.x = position.x;
-                touchPos.y = position.y;
+                touchPos.x = position.x + 50;
+                touchPos.y = position.y + 100;
                 touched = true;
             }
 
@@ -121,7 +117,6 @@ public class GameScreen extends ScreenAdapter {
     @Override
     public void dispose() {
         batch.dispose();
-        img.dispose();
     }
 
     @Override
