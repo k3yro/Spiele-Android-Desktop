@@ -13,7 +13,7 @@ public class DesktopLauncher {
 		config.setTitle("K3 Game");
 		//config.setWindowIcon(Files.FileType.Internal,"icon.png");
 
-		//config.setWindowedMode(1920, 1000);
+		config.setWindowedMode(500, 800);
 		//config.setFullscreenMode(Lwjgl3ApplicationConfiguration.getDisplayMode());
 
 
