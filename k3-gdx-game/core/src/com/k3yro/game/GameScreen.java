@@ -11,18 +11,21 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class GameScreen extends ScreenAdapter {
 
-    private Texture texture;
-    //private TextureRegion planetTexture;
-    //private TextureAtlas atlas;
+    private TextureAtlas atlas;
+    private TextureRegion graumondTexture;
+    private TextureRegion eismondTexture;
+    private TextureRegion glutmondTexture;
     private SpriteBatch batch;
     private Sprite sprite;
     int direction = 1;
 
     public GameScreen() {
-        //atlas = new TextureAtlas("planets.atlas");
-        texture = new Texture("badlogic.jpg");
+        atlas = new TextureAtlas("planets.atlas");
+        graumondTexture = atlas.findRegion("Graumond");
+        eismondTexture = atlas.findRegion("Eismond");
+        glutmondTexture = atlas.findRegion("Glutmond");
         batch = new SpriteBatch();
-        sprite = new Sprite(texture);
+        sprite = new Sprite(glutmondTexture);
     }
 
     @Override
@@ -30,17 +33,16 @@ public class GameScreen extends ScreenAdapter {
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
-        //batch.draw(texture, 0.0f, 0.0f, texture.getWidth(), texture.getHeight());
+        batch.draw(graumondTexture, 0.0f, 0.0f, graumondTexture.getRegionWidth(), graumondTexture.getRegionHeight());
+        batch.draw(eismondTexture, 65.0f, 65.0f, eismondTexture.getRegionWidth(), eismondTexture.getRegionHeight());
         sprite.draw(batch);
-        sprite.rotate(delta * 90.0f);
-        if (sprite.getX() >= Gdx.graphics.getWidth()){
-            direction = -1;
-        } else if (sprite.getX() <= 0){
-            direction = 1;
-        }
+
         sprite.translate(delta * 50 * direction, 50*delta*direction);
         System.out.println(sprite.getX());
         batch.end();
+
+        // Anzahl renderCalls
+        int renderCalls = batch.renderCalls;
     }
 
     @Override
