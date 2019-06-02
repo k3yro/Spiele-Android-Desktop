@@ -3,7 +3,6 @@ package com.k3yro.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -18,9 +17,12 @@ public class GameScreen extends ScreenAdapter {
     private SpriteBatch batch;
     private Sprite sprite;
     int direction = 1;
+    int x = 200;
+    int y = 200;
 
     public GameScreen() {
-        atlas = new TextureAtlas("planets.atlas");
+        atlas = K3GdxGame.manager.get("planets.atlas");
+
         graumondTexture = atlas.findRegion("Graumond");
         eismondTexture = atlas.findRegion("Eismond");
         glutmondTexture = atlas.findRegion("Glutmond");
@@ -35,10 +37,15 @@ public class GameScreen extends ScreenAdapter {
         batch.begin();
         batch.draw(graumondTexture, 0.0f, 0.0f, graumondTexture.getRegionWidth(), graumondTexture.getRegionHeight());
         batch.draw(eismondTexture, 65.0f, 65.0f, eismondTexture.getRegionWidth(), eismondTexture.getRegionHeight());
+
         sprite.draw(batch);
 
-        sprite.translate(delta * 50 * direction, 50*delta*direction);
-        System.out.println(sprite.getX());
+        sprite.translate(delta * x * direction, 0);
+        sprite.rotate(delta * 9);
+
+        sprite.scale(delta * 1.2f * direction);
+
+        System.out.println(sprite.getScaleX());
         batch.end();
 
         // Anzahl renderCalls

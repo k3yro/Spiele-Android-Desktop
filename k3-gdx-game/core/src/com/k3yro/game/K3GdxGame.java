@@ -1,10 +1,12 @@
 package com.k3yro.game;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.assets.AssetManager;
 
 public class K3GdxGame extends Game {
 
 	public static K3GdxGame INSTANCE;
+	public static AssetManager manager;
 
 	public K3GdxGame(){
 
@@ -13,6 +15,8 @@ public class K3GdxGame extends Game {
 
 	@Override
 	public void create () {
-		setScreen(new GameScreen());
+		manager = new AssetManager();
+		setScreen(new LoadingScreen());
 	}
+
 }
