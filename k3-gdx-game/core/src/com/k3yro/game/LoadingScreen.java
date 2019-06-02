@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 public class LoadingScreen extends ScreenAdapter {
     public LoadingScreen(){
         K3GdxGame.manager.load("planets.atlas", TextureAtlas.class);
+        K3GdxGame.manager.load("player.atlas", TextureAtlas.class);
     }
 
     @Override

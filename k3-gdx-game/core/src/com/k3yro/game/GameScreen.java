@@ -16,9 +16,9 @@ public class GameScreen extends ScreenAdapter {
     private TextureRegion glutmondTexture;
     private SpriteBatch batch;
     private Sprite sprite;
-    int direction = 1;
-    int x = 200;
-    int y = 200;
+    private Player player;
+
+
 
     public GameScreen() {
         atlas = K3GdxGame.manager.get("planets.atlas");
@@ -27,7 +27,9 @@ public class GameScreen extends ScreenAdapter {
         eismondTexture = atlas.findRegion("Eismond");
         glutmondTexture = atlas.findRegion("Glutmond");
         batch = new SpriteBatch();
-        sprite = new Sprite(glutmondTexture);
+        sprite = new Sprite(graumondTexture);
+        player = new Player();
+
     }
 
     @Override
@@ -35,15 +37,13 @@ public class GameScreen extends ScreenAdapter {
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
-        batch.draw(graumondTexture, 0.0f, 0.0f, graumondTexture.getRegionWidth(), graumondTexture.getRegionHeight());
-        batch.draw(eismondTexture, 65.0f, 65.0f, eismondTexture.getRegionWidth(), eismondTexture.getRegionHeight());
+        player.render(delta, batch);
 
         sprite.draw(batch);
-
-        sprite.translate(delta * x * direction, 0);
+        sprite.setPosition(0, Gdx.graphics.getHeight());
+        sprite.translate(delta * 2020, 0);
         sprite.rotate(delta * 9);
-
-        sprite.scale(delta * 1.2f * direction);
+        sprite.scale(delta * 0.2f);
 
         System.out.println(sprite.getScaleX());
         batch.end();

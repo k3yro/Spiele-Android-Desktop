@@ -17,6 +17,7 @@ public class DesktopLauncher {
 		settings.filterMin = Texture.TextureFilter.Linear;
 		settings.filterMag = Texture.TextureFilter.Linear;
 		TexturePacker.process("Planeten", ".", "planets");
+		TexturePacker.process("Player/Run", ".", "player");
 
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 		config.useVsync(true);

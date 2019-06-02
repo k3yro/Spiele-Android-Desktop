@@ -8,6 +8,13 @@ hs_err_pid*
 ## Robovm
 /ios/robovm-build/
 
+## Assets
+k3-gdx-game/android/assets/Player/
+k3-gdx-game/android/assets/player.atlas
+k3-gdx-game/android/assets/player.png
+k3-gdx-game/android/assets/player2.png
+
+
 ## GWT
 /html/war/
 /html/gwt-unitCache/
